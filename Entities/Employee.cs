@@ -1,12 +1,16 @@
-﻿namespace Exam_sem3.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Exam_sem3.Entities
 {
+    [Table("Employee_Tbl")]
     public class Employee
     {
-        public int EmployeeId { get; set; }
-        public string EmployeeName { get; set; }
-        public string EmployeeCode { get; set; }
-        public int DepartmentId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
         public string Rank { get; set; }
-        // Thêm các thuộc tính khác nếu cần
+        public int DepartmentId { get; set; }
+        [ForeignKey("DepartmentId")]
+        public Department Department { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Exam_sem3.Entities;
+using Exam_sem3.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Exam_sem3.Controllers
 {
@@ -12,82 +13,80 @@ namespace Exam_sem3.Controllers
         {
             _context = context;
         }
-
-        // Action để hiển thị danh sách phòng ban
-        public IActionResult Index()
+        // GET: DepartmentController1
+        public ActionResult Index()
         {
-            var departments = _context.Departments.ToList();
-            return View(departments);
+            List<Department> ls = _context.Departments.ToList();
+            return View(ls);
         }
 
-        // Action để hiển thị form thêm mới phòng ban
-        public IActionResult Create()
+        // GET: DepartmentController1/Details/5
+
+
+        // GET: DepartmentController1/Create
+        public ActionResult Create()
         {
             return View();
         }
-
-        // Action để xử lý thêm mới phòng ban
         [HttpPost]
-        public IActionResult Create(Department department)
+        public IActionResult Create(DepartmentModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Departments.Add(department);
+
+                // save to db
+                _context.Departments.Add(new Department
+                {
+                    Name = model.Name,
+                    Code = model.Code,
+                    Location = model.Location
+                });
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+
+                // redirect to list
+                return RedirectToAction("Index");
             }
-            return View(department);
+            return View(model);
         }
 
-        // Action để hiển thị form chỉnh sửa phòng ban
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            var department = _context.Departments.Find(id);
+            Department department = _context.Departments.Find(id);
             if (department == null)
-            {
                 return NotFound();
-            }
-            return View(department);
+            return View(new DepartmentModel { Id = department.Id, Name = department.Name, Code = department.Code, Location = department.Location });
         }
 
-        // Action để xử lý chỉnh sửa phòng ban
+
         [HttpPost]
-        public IActionResult Edit(int id, Department department)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(DepartmentModel model)
         {
-            if (id != department.DepartmentId)
-            {
-                return NotFound();
-            }
             if (ModelState.IsValid)
             {
-                _context.Update(department);
+                _context.Departments.Update(new Department
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Code = model.Code,
+                    Location = model.Location
+                });
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(department);
-        }
+            return View(model);
 
-        // Action để hiển thị form xóa phòng ban
+        }
         public IActionResult Delete(int id)
         {
-            var department = _context.Departments.Find(id);
+            Department department = _context.Departments.Find(id);
             if (department == null)
-            {
                 return NotFound();
-            }
-            return View(department);
-        }
-
-        // Action để xử lý xóa phòng ban
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var department = _context.Departments.Find(id);
             _context.Departments.Remove(department);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
-        // Action để hiển thị báo cáo và thống kê nhân viên trong một phòng ban
-        
+
     }
 }

@@ -1,0 +1,24 @@
+﻿@model Exam_sem3.Models.DepartmentModel
+@{
+
+}
+<div class="container">
+    @using (Html.BeginForm(FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Code)
+            @Html.TextBoxFor(m => m.Code)
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Location)
+            @Html.TextBoxFor(m => m.Location)
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+</div>

@@ -1,6 +1,7 @@
-﻿using Exam_sem3.Entities;
+﻿
+using Exam_sem3.Entities;
+using Exam_sem3.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Exam_sem3.Controllers
 {
@@ -12,30 +13,36 @@ namespace Exam_sem3.Controllers
         {
             _context = context;
         }
-
-        
-
-        // Action để hiển thị form thêm mới nhân viên
-        public IActionResult Create(int departmentId)
+        // GET: DepartmentController1
+        public ActionResult Index()
         {
-            ViewBag.DepartmentId = departmentId;
+            List<Employee> ls = _context.Employees.ToList();
+            return View(ls);
+        }
+        public ActionResult Create()
+        {
             return View();
         }
-
-        // Action để xử lý thêm mới nhân viên
         [HttpPost]
-        public IActionResult Create(int departmentId, Employee employee)
+        public IActionResult Create(EmployeeModel model)
         {
             if (ModelState.IsValid)
             {
-                employee.DepartmentId = departmentId;
-                _context.Employees.Add(employee);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index), new { departmentId });
-            }
 
-            ViewBag.DepartmentId = departmentId;
-            return View(employee);
+                // save to db
+                _context.Employees.Add(new Employee
+                {
+                    Name = model.Name,
+                    Code = model.Code,
+                    Rank = model.Rank,
+                    DepartmentId = model.DepartmentId
+                });
+                _context.SaveChanges();
+
+                // redirect to list
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
     }
 }

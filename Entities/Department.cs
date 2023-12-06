@@ -1,12 +1,16 @@
-﻿namespace Exam_sem3.Entities
+﻿using Exam_sem3.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Exam_sem3.Entities
 {
+    [Table("Departments")]
     public class Department
     {
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
-        public string DepartmentCode { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
         public string Location { get; set; }
-        public int NumberOfPersonals { get; set; }
-        // Thêm các thuộc tính khác nếu cần
+        public ICollection<Employee> Employees { get; set; }
+
     }
 }

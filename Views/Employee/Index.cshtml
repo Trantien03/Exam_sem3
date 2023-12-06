@@ -1,0 +1,29 @@
+﻿@model List<Exam_sem3.Entities.Employee>
+@{
+
+}
+<div class="container">
+    <h1>Department</h1>
+    <a class="text-primary" asp-controller="Employee" asp-action="Create">Create a Employee</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Rank</th>
+        <th>DepartmentId</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Code</td>
+                    <td>@item.Rank</td>
+                    <td>@item.DepartmentId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

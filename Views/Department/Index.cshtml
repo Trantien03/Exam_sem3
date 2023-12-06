@@ -1,0 +1,35 @@
+﻿@model List<Exam_sem3.Entities.Department>
+@{
+
+}
+<div class="container">
+    <h1>Department</h1>
+    <a class="text-primary" asp-controller="Department" asp-action="Create">Create a Department</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Location</th>
+        <th>Acction</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Code</td>
+                    <td>@item.Location</td>
+                    <td>
+                        <a asp-controller="Department" asp-action="Edit"
+                           asp-route-id="@item.Id">Edit</a>
+                        <a onclick="return confirm('Delete department @item.Name')"
+                           asp-controller="Department" asp-action="Delete"
+                          asp-route-id="@item.Id">Delete</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
