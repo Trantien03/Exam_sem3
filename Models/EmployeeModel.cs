@@ -1,4 +1,5 @@
-﻿namespace Exam_sem3.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+namespace Exam_sem3.Models
 {
     public class EmployeeModel
     {

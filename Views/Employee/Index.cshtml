@@ -2,16 +2,20 @@
 @{
 
 }
-<div class="container">
-    <h1>Department</h1>
-    <a class="text-primary" asp-controller="Employee" asp-action="Create">Create a Employee</a>
+<div class="container mt-4">
+    <h1 class="mb-3">Employees</h1>
+    <a class="btn btn-primary mb-3" asp-controller="Employee" asp-action="Create">Create an Employee</a>
+
     <table class="table table-bordered table-striped">
-        <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Code</th>
-        <th>Rank</th>
-        <th>DepartmentId</th>
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Rank</th>
+                <th>DepartmentId</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
@@ -22,6 +26,10 @@
                     <td>@item.Code</td>
                     <td>@item.Rank</td>
                     <td>@item.DepartmentId</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" onclick="return confirm('Delete employee @item.Name')" asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
                 </tr>
             }
         </tbody>

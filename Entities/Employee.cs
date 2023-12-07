@@ -2,7 +2,7 @@
 
 namespace Exam_sem3.Entities
 {
-    [Table("Employee_Tbl")]
+    [Table("Employees")]
     public class Employee
     {
         public int Id { get; set; }

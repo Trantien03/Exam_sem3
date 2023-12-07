@@ -19,11 +19,6 @@ namespace Exam_sem3.Controllers
             List<Department> ls = _context.Departments.ToList();
             return View(ls);
         }
-
-        // GET: DepartmentController1/Details/5
-
-
-        // GET: DepartmentController1/Create
         public ActionResult Create()
         {
             return View();
@@ -33,8 +28,6 @@ namespace Exam_sem3.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                // save to db
                 _context.Departments.Add(new Department
                 {
                     Name = model.Name,
@@ -42,8 +35,6 @@ namespace Exam_sem3.Controllers
                     Location = model.Location
                 });
                 _context.SaveChanges();
-
-                // redirect to list
                 return RedirectToAction("Index");
             }
             return View(model);
